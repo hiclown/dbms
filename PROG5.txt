@@ -1,0 +1,42 @@
+ALTER TABLE EMPLOYEE ADD Dno INT REFERENCES DEPARTMENT(Dno)
+
+Q1
+(SELECT p.Pno
+FROM PROJECT p, DEPARTMENT d, EMPLOYEE e
+WHERE p.Dno=d.Dno AND d.MgrSsn = e.Ssn
+AND e.Lname='scott')
+
+UNION
+
+(SELECT p1.Pno
+FROM PROJECT p1, WORKS_ON w, EMPLOYEE e1
+WHERE p1.Pno=w.Pno AND e1.Ssn = w.Ssn
+AND e.Lname='scott');
+
+
+
+Q2
+SELECT e.Fname, e.Lname , 1.1*e.Salary as incr_sal
+FROM EMPLOYEE e, WORKS_ON w, PROJECT p
+WHERE  e.Ssn = w.Ssn AND w.Pno=p.Pno AND p.Pname = 'iot';
+
+Q3
+SELECT SUM(e.Salary) as total_salary, MAX(e.Salary) as max_salary, MIN(e.Salary) as min_salary, AVG(e.Salary) as avg_salary
+FROM EMPOYEE e, DEPARTMENT d
+WHERE e.Dno = d.Dno
+AND d.name='accounts';
+
+Q4
+SELECT e.fname, e.lname
+FROM EMPLOYEE e
+WHERE NOT EXISTS (SELECT Pno FROM PROJECT WHERE Dno='5') MINUS (SELECT Pno FROM WORKS_ON WHERE e.Ssn=Ssn);
+
+Q5
+SELECT d.Dno, COUNT(*)
+FROM DEPARTMENT d, EMPLOYEE e
+WHERE d.Dno=e.Dno 
+AND e.Salary>600000 AND d.Dno IN (  SELECT e1.Dno 
+			                FROM EMMPLOYEE e1
+				GROUP BY e1.Dno
+				HAVING VOUNT(*)>5 )
+GROUP BY d.Dno;
