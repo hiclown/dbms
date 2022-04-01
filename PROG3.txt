@@ -1,0 +1,433 @@
+create table actor(
+act_id varchar(3),
+act-name varchar(20),
+act_gender varchar(1),
+primary key(act_id)
+);
+
+Table created.
+
+create table director(
+dir_id varchar(3),
+dir_name varchar(20),
+dir_phone varchar(10),
+primary key(dir_id)
+);
+
+Table created.
+
+create table movies
+(
+mov_id varchar(3),
+mov_title varchar(20),
+mov_year int,
+mov_lang varchar(3),
+dir_id varchar(3),
+primary key(mov_id),
+foreign key (dir_id) references director (dir_id) on delete set null
+);
+
+Table created.
+
+create table moviecast(
+act_id varchar(3),
+mov_id varchar(3),
+role varchar(10),
+primary key(act_id,mov_id),
+foreign key (act_id) references actor (act_id) on delete set null,
+foreign key (mov_id) references movies (mov_id) on delete set null
+);
+
+Table created.
+
+create table ratings(
+mov_id varchar(3),
+rev_stars int,
+primary key (mov_id,rev_stars),
+foreign key (mov_id) references movies (mov_id) on delete set null
+);
+
+Table created.
+
+SQL> desc actor;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACT_ID                                    NOT NULL VARCHAR2(3)
+ ACT_NAME                                           VARCHAR2(20)
+ ACT_GENDER                                         VARCHAR2(1)
+
+SQL> desc director;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DIR_ID                                    NOT NULL VARCHAR2(3)
+ DIR_NAME                                           VARCHAR2(20)
+ DIR_PHONE                                          VARCHAR2(10)
+
+SQL> desc movies;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ MOV_ID                                    NOT NULL VARCHAR2(3)
+ MOV_TITLE                                          VARCHAR2(20)
+ MOV_YEAR                                           NUMBER(38)
+ MOV_LANG                                           VARCHAR2(3)
+ DIR_ID                                             VARCHAR2(3)
+
+SQL> desc moviecast;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ACT_ID                                    NOT NULL VARCHAR2(3)
+ MOV_ID                                    NOT NULL VARCHAR2(3)
+ ROLE                                               VARCHAR2(10)
+
+SQL> desc ratings;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ MOV_ID                                    NOT NULL VARCHAR2(3)
+ REV_STARS                                 NOT NULL NUMBER(38)
+
+
+
+
+SQL> insert into actor values('A1','Sachin','M');
+
+1 row created.
+
+SQL> insert into actor values('A2','Jasmine','F');
+
+1 row created.
+
+SQL> insert into actor values('A3','Lily','F');
+
+1 row created.
+
+SQL> insert into actor values('A4','Robert','M');
+
+1 row created.
+
+SQL> insert into actor values('A5','Singh','M');
+
+1 row created.
+
+SQL> insert into actor values('A6','Komal','F');
+
+1 row created.
+
+SQL> select * from actor;
+
+ACT ACT_NAME             A
+--- -------------------- -
+A1  Sachin               M
+A2  Jasmine              F
+A3  Lily                 F
+A4  Robert               M
+A5  Singh                M
+A6  Komal                F
+
+6 rows selected.
+
+
+SQL> insert into director values('D1','Karthik','1234567890');
+
+1 row created.
+
+SQL> insert into director values('D2','Hitchcock','0987654321');
+
+1 row created.
+
+SQL> insert into director values('D3','Nolan','2345678901');
+
+1 row created.
+
+SQL> insert into director values('D4','Tej','3456789012');
+
+1 row created.
+
+SQL> select * from director;
+
+DIR DIR_NAME             DIR_PHONE
+--- -------------------- ----------
+D1  Karthik              1234567890
+D2  Hitchcock            0987654321
+D3  Nolan                2345678901
+D4  Tej                  3456789012
+
+SQL> insert into movies values('M1','Detective Jet',2020,'ENG','D1');
+
+1 row created.
+
+SQL> insert into movies values('M2','Prince Bobo',2021,'KAN','D2');
+
+1 row created.
+
+SQL> insert into movies values('M3','OniLand',2021,'JAP','D4');
+
+1 row created.
+
+SQL> insert into movies values('M4','Omen',2021,'ENG','D1');
+
+1 row created.
+
+SQL> insert into movies values('M5','Tenet',2020,'ENG','D3');
+
+1 row created.
+
+SQL> insert into movies values('M6','Forest Tales',1990,'HIN','D2');
+
+1 row created.
+
+SQL> select * from movies;
+
+MOV MOV_TITLE              MOV_YEAR MOV DIR
+--- -------------------- ---------- --- ---
+M1  Detective Jet              2020 ENG D1
+M2  Prince Bobo                2021 KAN D2
+M3  OniLand                    2021 JAP D4
+M4  Omen                       2021 ENG D1
+M5  Tenet                      2020 ENG D3
+M6  Forest Tales               1990 HIN D2
+
+6 rows selected.
+
+SQL> insert into moviecast values('A1','M1','Hero');
+
+1 row created.
+
+SQL> insert into moviecast values('A3','M1','Heroine');
+
+1 row created.
+
+SQL> insert into moviecast values('A2','M2','Heroine');
+
+1 row created.
+
+SQL> insert into moviecast values('A5','M2','Hero');
+
+1 row created.
+
+SQL> insert into moviecast values('A2','M3','Heroine');
+
+1 row created.
+
+SQL> insert into moviecast values('A6','M3','Heroine');
+
+1 row created.
+
+SQL> insert into moviecast values('A1','M4','Hero');
+
+1 row created.
+
+SQL> insert into moviecast values('A2','M4','Heroine');
+
+1 row created.
+
+SQL> insert into moviecast values('A4','M5','Hero');
+
+1 row created.
+
+SQL> insert into moviecast values('A2','M5','Heroine');
+
+1 row created.
+
+SQL> select * from moviecast;
+
+ACT MOV ROLE
+--- --- ----------
+A1  M1  Hero
+A3  M1  Heroine
+A2  M2  Heroine
+A5  M2  Hero
+A2  M3  Heroine
+A6  M3  Heroine
+A1  M4  Hero
+A2  M4  Heroine
+A4  M5  Hero
+A2  M5  Heroine
+
+10 rows selected.
+
+
+SQL> insert into ratings values('M1','9');
+
+1 row created.
+
+SQL> insert into ratings values('M2','7');
+
+1 row created.
+
+SQL> insert into ratings values('M3','6');
+
+1 row created.
+
+SQL> insert into ratings values('M4','10');
+
+1 row created.
+
+SQL> insert into ratings values('M5','7');
+
+1 row created.
+
+SQL> insert into ratings values('M6','8');
+
+1 row created.
+
+SQL> insert into ratings values('M4','9');
+
+1 row created.
+
+SQL> insert into ratings values('M3','4');
+
+1 row created.
+
+SQL> select * from ratings;
+
+MOV  REV_STARS
+--- ----------
+M1           9
+M2           7
+M3           4
+M3           6
+M4           9
+M4          10
+M5           7
+M6           8
+
+8 rows selected.
+
+QUERY 1
+SQL> select mov_title from movies
+  2  where dir_id IN (select dir_id from director where dir_name = 'Hitchcock');
+
+MOV_TITLE
+--------------------
+Prince Bobo
+Forest Tales
+
+QUERY 2
+SQL> select mov_title from movies m, moviecast mc
+  2  where m.mov_id = mc.mov_id
+  3  and mc.act_id IN (select act_id from moviecast
+  4  group by act_id having COUNT (act_id)>1)
+  5  group by mov_title;
+
+MOV_TITLE
+--------------------
+Omen
+Tenet
+Detective Jet
+OniLand
+Prince Bobo
+
+SQL> select act_id from moviecast group by act_id having COUNT(*)>1;
+
+ACT
+---
+A1
+A2
+
+alt
+
+SQL> select mov_title, a.act_name from movies m,moviecast mc,actor a
+  2  where m.mov_id = mc.mov_id
+  3  and mc.act_id=a.act_id
+  4  and mc.act_id IN (select act_id from moviecast group by act_id having count (*)>1);
+
+MOV_TITLE            ACT_NAME
+-------------------- --------------------
+Detective Jet        Sachin
+Omen                 Sachin
+Prince Bobo          Jasmine
+OniLand              Jasmine
+Omen                 Jasmine
+Tenet                Jasmine
+
+6 rows selected.
+
+QUERY 3
+SQL> select act_name,mov_title,mov_year from actor a
+  2  JOIN moviecast c
+  3  ON a.act_id = c.act_id
+  4  JOIN movies m
+  5  ON c.mov_id = m.mov_id
+  6  where m.mov_year NOT BETWEEN 2000 and 2020;
+
+ACT_NAME             MOV_TITLE              MOV_YEAR
+-------------------- -------------------- ----------
+Sachin               Omen                       2021
+Jasmine              Prince Bobo                2021
+Jasmine              OniLand                    2021
+Jasmine              Omen                       2021
+Singh                Prince Bobo                2021
+Komal                OniLand                    2021
+
+6 rows selected.
+
+QUERY 4
+SQL> select mov_title, MAX(rev_stars) from movies
+  2  INNER JOIN ratings using (mov_id)
+  3  group by mov_title
+  4  having MAX(rev_stars)>0
+  5  order by mov_title;
+
+MOV_TITLE            MAX(REV_STARS)
+-------------------- --------------
+Detective Jet                     9
+Forest Tales                      8
+Omen                             10
+OniLand                           6
+Prince Bobo                       7
+Tenet                             7
+
+6 rows selected.
+
+alt
+
+SQL> select mov_title, MAX(rev_stars) as BEST_RATINGS
+  2  from movies m, ratings r
+  3  where m.mov_id= r.mov_id
+  4  and r.rev_stars IS NOT NULL
+  5  group by mov_title
+  6  order by mov_title;
+
+MOV_TITLE            BEST_RATINGS
+-------------------- ------------
+Detective Jet                   9
+Forest Tales                    8
+Omen                           10
+OniLand                         6
+Prince Bobo                     7
+Tenet                           7
+
+6 rows selected.
+
+SQL> update ratings
+  2  set rev_stars=5
+  3  where mov_id IN (select mov_id from movies where dir_id IN (select dir_id from director
+  4  where dir_name='Hitchcock'));
+
+2 rows updated.
+
+SQL> select * from ratings;
+
+MOV  REV_STARS
+--- ----------
+M1           9
+M2           5
+M3           4
+M3           6
+M4           9
+M4          10
+M5           7
+M6           5
+
+8 rows selected.
+
+SQL>
+
+
+
+
+
+
+
+
+

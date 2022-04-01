@@ -1,0 +1,662 @@
+SQL> ed publisher.sql
+CREATE TABLE PUBLISHER
+(
+Name varchar(20) PRIMARY KEY,
+Address varchar(5),
+Phone varchar(10)
+);
+
+Table created.
+
+
+SQL> ed book.sql
+CREATE TABLE BOOK
+(
+Book_ID varchar(4) PRIMARY KEY,
+Title varchar(10),
+Publisher_Name varchar(10),
+Pub_Year int,
+FOREIGN KEY(Publisher_Name) REFERENCES PUBLISHER(Name) on delete cascade
+);
+
+Table created.
+
+
+SQL> ed bookauth.sql
+CREATE TABLE BOOK_AUTHORS
+(
+Book_ID varchar(4) PRIMARY KEY,
+Auth_Name varchar(10),
+FOREIGN KEY(Book_ID) REFERENCES BOOK(Book_ID) on delete cascade
+);
+
+Table created.
+
+SQL> ed lbranch.sql
+CREATE TABLE LIBRARY_BRANCH
+(
+Branch_ID varchar(4) PRIMARY KEY,
+Branch_Name varchar(15),
+Address varchar(15)
+);
+
+Table created.
+
+SQL> ed bookcop.sql
+CREATE TABLE BOOK_COPIES
+(
+Book_ID varchar(4),
+Branch_ID varchar(4),
+No_of_copies int,
+PRIMARY KEY(Book_ID,Branch_ID),
+FOREIGN KEY (Book_ID) REFERENCES BOOK(Book_ID) on delete cascade,
+FOREIGN KEY (Branch_ID) REFERENCES LIBRARY_BRANCH(Branch_ID) on delete cascade
+);
+
+Table created.
+
+SQL> ed booklend.sql
+CREATE TABLE BOOK_LENDING
+(
+Book_ID varchar(4),
+Branch_ID varchar(4),
+Card_No int,
+Date_Out date,
+Due_Date date,
+PRIMARY KEY(Book_ID,Branch_ID,Card_No),
+FOREIGN KEY (Book_ID) REFERENCES BOOK(Book_ID) on delete cascade,
+FOREIGN KEY (Branch_ID) REFERENCES LIBRARY_BRANCH(Branch_ID) on delete cascade
+);
+Table created.
+
+SQL> desc PUBLISHER
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NAME                                      NOT NULL VARCHAR2(20)
+ ADDRESS                                            VARCHAR2(5)
+ PHONE                                              VARCHAR2(10)
+
+SQL> desc BOOK
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BOOK_ID                                   NOT NULL VARCHAR2(4)
+ TITLE                                              VARCHAR2(10)
+ PUBLISHER_NAME                                     VARCHAR2(10)
+ PUB_YEAR                                           NUMBER(38)
+
+SQL> desc BOOK_AUTHORS
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BOOK_ID                                   NOT NULL VARCHAR2(4)
+ AUTH_NAME                                          VARCHAR2(10)
+
+SQL> desc LIBRARY_BRANCH
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BRANCH_ID                                 NOT NULL VARCHAR2(4)
+ BRANCH_NAME                                        VARCHAR2(15)
+ ADDRESS                                            VARCHAR2(15)
+
+SQL> desc BOOK_COPIES
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BOOK_ID                                   NOT NULL VARCHAR2(4)
+ BRANCH_ID                                 NOT NULL VARCHAR2(4)
+ NO_OF_COPIES                                       NUMBER(38)
+
+SQL> desc BOOK_LENDING
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BOOK_ID                                   NOT NULL VARCHAR2(4)
+ BRANCH_ID                                 NOT NULL VARCHAR2(4)
+ CARD_NO                                   NOT NULL NUMBER(38)
+ DATE_OUT                                           DATE
+ DUE_DATE                                           DATE
+
+SQL> INSERT INTO PUBLISHER VALUES
+  2  ('&Name','&Address','&Phone');
+Enter value for name: Apex
+Enter value for address: Mysuru
+Enter value for phone: 1234567890
+old   2: ('&Name','&Address','&Phone')
+new   2: ('Apex','Mysuru','1234567890')
+('Apex','Mysuru','1234567890')
+        *
+ERROR at line 2:
+ORA-12899: value too large for column "EXAM2"."PUBLISHER"."ADDRESS" (actual: 6,
+maximum: 5)
+
+
+SQL> INSERT INTO PUBLISHER VALUES
+  2  ('&Name','&Address','&Phone');
+Enter value for name: Apex
+Enter value for address: Dehli
+Enter value for phone: 1234567890
+old   2: ('&Name','&Address','&Phone')
+new   2: ('Apex','Dehli','1234567890')
+
+1 row created.
+
+SQL> INSERT INTO PUBLISHER VALUES
+  2  ('&Name','&Address','&Phone');
+Enter value for name: Oyster
+Enter value for address: Surat
+Enter value for phone: 0987654321
+old   2: ('&Name','&Address','&Phone')
+new   2: ('Oyster','Surat','0987654321')
+
+1 row created.
+
+SQL> INSERT INTO PUBLISHER VALUES
+  2  ('&Name','&Address','&Phone');
+Enter value for name: Alpine
+Enter value for address: Hubli
+Enter value for phone: 2468101214
+old   2: ('&Name','&Address','&Phone')
+new   2: ('Alpine','Hubli','2468101214')
+
+1 row created.
+
+SQL> INSERT INTO PUBLISHER VALUES
+  2  ('&Name','&Address','&Phone');
+Enter value for name: Neo
+Enter value for address: Kochi
+Enter value for phone: 1357911131
+old   2: ('&Name','&Address','&Phone')
+new   2: ('Neo','Kochi','1357911131')
+
+1 row created.
+
+SQL> INSERT INTO PUBLISHER VALUES
+  2  ('&Name','&Address','&Phone');
+Enter value for name: Canyon
+Enter value for address: Udupi
+Enter value for phone: 0192837465
+old   2: ('&Name','&Address','&Phone')
+new   2: ('Canyon','Udupi','0192837465')
+
+1 row created.
+
+SQL> SELECT * FROM PUBLISHER;
+
+NAME                 ADDRE PHONE
+-------------------- ----- ----------
+Apex                 Dehli 1234567890
+Oyster               Surat 0987654321
+Alpine               Hubli 2468101214
+Neo                  Kochi 1357911131
+Canyon               Udupi 0192837465
+
+SQL> INSERT INTO BOOK VALUES
+  2  ('&Book_ID','&Title','&Publisher_Name','&Pub_Year');
+Enter value for book_id: B01
+Enter value for title: Algorithms
+Enter value for publisher_name: Alpine
+Enter value for pub_year: 2018
+old   2: ('&Book_ID','&Title','&Publisher_Name','&Pub_Year')
+new   2: ('B01','Algorithms','Alpine','2018')
+
+1 row created.
+
+SQL> INSERT INTO BOOK VALUES
+  2  ('&Book_ID','&Title','&Publisher_Name','&Pub_Year');
+Enter value for book_id: B02
+Enter value for title: Facts
+Enter value for publisher_name: Oyster
+Enter value for pub_year: 2021
+old   2: ('&Book_ID','&Title','&Publisher_Name','&Pub_Year')
+new   2: ('B02','Facts','Oyster','2021')
+
+1 row created.
+
+
+SQL> INSERT INTO BOOK VALUES
+  2  ('&Book_ID','&Title','&Publisher_Name','&Pub_Year');
+Enter value for book_id: B03
+Enter value for title: Maths
+Enter value for publisher_name: Canyon
+Enter value for pub_year: 2010
+old   2: ('&Book_ID','&Title','&Publisher_Name','&Pub_Year')
+new   2: ('B03','Maths','Canyon','2010')
+
+1 row created.
+
+SQL> INSERT INTO BOOK VALUES
+  2  ('&Book_ID','&Title','&Publisher_Name','&Pub_Year');
+Enter value for book_id: B04
+Enter value for title: Stories
+Enter value for publisher_name: Neo
+Enter value for pub_year: 2007
+old   2: ('&Book_ID','&Title','&Publisher_Name','&Pub_Year')
+new   2: ('B04','Stories','Neo','2007')
+
+1 row created.
+
+SQL> INSERT INTO BOOK VALUES
+  2  ('&Book_ID','&Title','&Publisher_Name','&Pub_Year');
+Enter value for book_id: B05
+Enter value for title: DBMS
+Enter value for publisher_name: Apex
+Enter value for pub_year: 2014
+old   2: ('&Book_ID','&Title','&Publisher_Name','&Pub_Year')
+new   2: ('B05','DBMS','Apex','2014')
+
+1 row created.
+
+SQL> Select * from BOOK;
+
+BOOK TITLE      PUBLISHER_   PUB_YEAR
+---- ---------- ---------- ----------
+B01  Algorithms Alpine           2018
+B02  Facts      Oyster           2021
+B03  Maths      Canyon           2010
+B04  Stories    Neo              2007
+B05  DBMS       Apex             2014
+
+
+
+SQL> INSERT INTO BOOK_AUTHORS VALUES
+  2  ('&Book_ID','&Auth_Name');
+Enter value for book_id: B01
+Enter value for auth_name: Sachin
+old   2: ('&Book_ID','&Auth_Name')
+new   2: ('B01','Sachin')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_AUTHORS VALUES
+  2  ('&Book_ID','&Auth_Name');
+Enter value for book_id: B02
+Enter value for auth_name: Tejas
+old   2: ('&Book_ID','&Auth_Name')
+new   2: ('B02','Tejas')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_AUTHORS VALUES
+  2  ('&Book_ID','&Auth_Name');
+Enter value for book_id: B03
+Enter value for auth_name: Glen
+old   2: ('&Book_ID','&Auth_Name')
+new   2: ('B03','Glen')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_AUTHORS VALUES
+  2  ('&Book_ID','&Auth_Name');
+Enter value for book_id: B04
+Enter value for auth_name: Tanish
+old   2: ('&Book_ID','&Auth_Name')
+new   2: ('B04','Tanish')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_AUTHORS VALUES
+  2  ('&Book_ID','&Auth_Name');
+Enter value for book_id: B05
+Enter value for auth_name: Alister
+old   2: ('&Book_ID','&Auth_Name')
+new   2: ('B05','Alister')
+
+1 row created.
+
+SQL> Select * from BOOK_AUTHORS;
+
+BOOK AUTH_NAME
+---- ----------
+B01  Sachin
+B02  Tejas
+B03  Glen
+B04  Tanish
+B05  Alister
+
+SQL> INSERT INTO LIBRARY_BRANCH VALUES
+  2  ('&Branch_ID','&Branch_Name','&Address');
+Enter value for branch_id: BR01
+Enter value for branch_name: Kappa
+Enter value for address: Mangalore
+old   2: ('&Branch_ID','&Branch_Name','&Address')
+new   2: ('BR01','Kappa','Mangalore')
+
+SQL> INSERT INTO LIBRARY_BRANCH VALUES
+  2  ('&Branch_ID','&Branch_Name','&Address');
+Enter value for branch_id: BR02
+Enter value for branch_name: Nexo
+Enter value for address: Udupi
+old   2: ('&Branch_ID','&Branch_Name','&Address')
+new   2: ('BR02','Nexo','Udupi')
+
+SQL> INSERT INTO LIBRARY_BRANCH VALUES
+  2  ('&Branch_ID','&Branch_Name','&Address');
+Enter value for branch_id: BR03
+Enter value for branch_name: Rio
+Enter value for address: Bangalore
+old   2: ('&Branch_ID','&Branch_Name','&Address')
+new   2: ('BR03','Rio','Bangalore')
+
+SQL> SELECT * FROM LIBRARY_BRANCH;
+
+BRAN BRANCH_NAME     ADDRESS
+---- --------------- ---------------
+BR01 Kappa           Mangalore
+BR02 Nexo            Udupi
+BR03 Rio             Bangalore
+
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B01
+Enter value for branch_id: BR01
+Enter value for no_of_copies: 12
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B01','BR01','12')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B01
+Enter value for branch_id: BR03
+Enter value for no_of_copies: 20
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B01','BR03','20')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B02
+Enter value for branch_id: BR01
+Enter value for no_of_copies: 6
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B02','BR01','6')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B02
+Enter value for branch_id: BR02
+Enter value for no_of_copies: 10
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B02','BR02','10')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B03
+Enter value for branch_id: BR01
+Enter value for no_of_copies: 30
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B03','BR01','30')
+
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B04
+Enter value for branch_id: BR01
+Enter value for no_of_copies: 10
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B04','BR01','10')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B04
+Enter value for branch_id: BR02
+Enter value for no_of_copies: 6
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B04','BR02','6')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B04
+Enter value for branch_id: BR03
+Enter value for no_of_copies: 40
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B04','BR03','40')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_COPIES VALUES
+  2  ('&Book_ID','&Branch_ID','&No_of_copies');
+Enter value for book_id: B05
+Enter value for branch_id: BR03
+Enter value for no_of_copies: 1
+old   2: ('&Book_ID','&Branch_ID','&No_of_copies')
+new   2: ('B05','BR03','1')
+
+1 row created.
+
+
+SQL>SELECT * FROM BOOK_COPIES;
+
+BOOK BRAN NO_OF_COPIES
+---- ---- ------------
+B01  BR01           12
+B01  BR03           20
+B02  BR01            6
+B02  BR02           10
+B03  BR01           30
+B04  BR01           10
+B04  BR02            6
+B04  BR03           40
+B05  BR03            1
+
+9 rows selected.
+
+
+SQL> INSERT INTO BOOK_LENDING VALUES
+  2  ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date');
+Enter value for book_id: B01
+Enter value for branch_id: BR01
+Enter value for card_no: 1
+Enter value for date_out: 05-feb-2021
+Enter value for due_date: 1-Mar-2021
+old   2: ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date')
+new   2: ('B01','BR01','1','05-feb-2021','1-Mar-2021')
+
+1 row created.
+
+
+SQL> INSERT INTO BOOK_LENDING VALUES
+  2  ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date');
+Enter value for book_id: B01
+Enter value for branch_id: BR03
+Enter value for card_no: 2
+Enter value for date_out: 04-feb-2021
+Enter value for due_date: 05-mar-2021
+old   2: ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date')
+new   2: ('B01','BR03','2','04-feb-2021','05-mar-2021')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_LENDING VALUES
+  2  ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date');
+Enter value for book_id: B03
+Enter value for branch_id: BR01
+Enter value for card_no: 1
+Enter value for date_out: 03-mar-2021
+Enter value for due_date: 01-apr-2021
+old   2: ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date')
+new   2: ('B03','BR01','1','03-mar-2021','01-apr-2021')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_LENDING VALUES
+  2  ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date');
+Enter value for book_id: B04
+Enter value for branch_id: BR02
+Enter value for card_no: 1
+Enter value for date_out: 03-apr-2021
+Enter value for due_date: 20-apr-2021
+old   2: ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date')
+new   2: ('B04','BR02','1','03-apr-2021','20-apr-2021')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_LENDING VALUES
+  2  ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date');
+Enter value for book_id: B04
+Enter value for branch_id: BR03
+Enter value for card_no: 2
+Enter value for date_out: 03-apr-2021
+Enter value for due_date: 20-apr-2021
+old   2: ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date')
+new   2: ('B04','BR03','2','03-apr-2021','20-apr-2021')
+
+1 row created.
+
+
+
+SQL> INSERT INTO BOOK_LENDING VALUES
+  2  ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date');
+Enter value for book_id: B02
+Enter value for branch_id: BR01
+Enter value for card_no: 1
+Enter value for date_out: 05-may-2021
+Enter value for due_date: 01-jun-2021
+old   2: ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date')
+new   2: ('B02','BR01','1','05-may-2021','01-jun-2021')
+
+1 row created.
+
+
+
+SQL> INSERT INTO BOOK_LENDING VALUES
+  2  ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date');
+Enter value for book_id: B05
+Enter value for branch_id: BR03
+Enter value for card_no: 4
+Enter value for date_out: 01-jun-2021
+Enter value for due_date: 14-jun-2021
+old   2: ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date')
+new   2: ('B05','BR03','4','01-jun-2021','14-jun-2021')
+
+1 row created.
+
+
+SQL> INSERT INTO BOOK_LENDING VALUES
+  2  ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date');
+Enter value for book_id: B05
+Enter value for branch_id: BR03
+Enter value for card_no: 1
+Enter value for date_out: 15-jun-2021
+Enter value for due_date: 01-jul-2021
+old   2: ('&Book_ID','&Branch_ID','&Card_No','&Date_Out','&Due_Date')
+new   2: ('B05','BR03','1','15-jun-2021','01-jul-2021')
+
+1 row created.
+
+SQL> SELECT * FROM BOOK_LENDING
+  2  ;
+
+BOOK BRAN    CARD_NO DATE_OUT  DUE_DATE
+---- ---- ---------- --------- ---------
+B01  BR01          1 05-FEB-21 01-MAR-21
+B01  BR03          2 04-FEB-21 05-MAR-21
+B03  BR01          1 03-MAR-21 01-APR-21
+B04  BR02          1 03-APR-21 20-APR-21
+B04  BR03          2 03-APR-21 20-APR-21
+B02  BR01          1 05-MAY-21 01-JUN-21
+B05  BR03          4 01-JUN-21 14-JUN-21
+B05  BR03          1 15-JUN-21 01-JUL-21
+
+8 rows selected
+
+Q!
+SQL> SELECT b.Book_ID,b.Title,b.Publisher_Name,a.Auth_Name,c.No_of_copies,lb.Branch_ID
+  2  FROM BOOK b, BOOK_AUTHORS a, BOOK_COPIES c, LIBRARY_BRANCH lb
+  3  WHERE a.Book_ID=b.Book_ID
+  4  AND b.Book_ID=c.Book_ID
+  5  AND c.Branch_ID=lb.Branch_ID;
+
+BOOK TITLE      PUBLISHER_ AUTH_NAME  NO_OF_COPIES BRAN
+---- ---------- ---------- ---------- ------------ ----
+B01  Algorithms Alpine     Sachin               12 BR01
+B01  Algorithms Alpine     Sachin               20 BR03
+B02  Facts      Oyster     Tejas                 6 BR01
+B02  Facts      Oyster     Tejas                10 BR02
+B03  Maths      Canyon     Glen                 30 BR01
+B04  Stories    Neo        Tanish               10 BR01
+B04  Stories    Neo        Tanish                6 BR02
+B04  Stories    Neo        Tanish               40 BR03
+B05  DBMS       Apex       Alister               1 BR03
+
+9 rows selected.
+
+Q2
+SQL> SELECT Card_No FROM BOOK_LENDING
+  2  WHERE Date_Out BETWEEN '01-apr-2021' AND '01-jul-2021'
+  3  GROUP BY Card_No
+  4  having count(*)>3;
+
+no rows selected
+
+SQL> SELECT Card_No FROM BOOK_LENDING
+  2  WHERE Date_Out BETWEEN '01-apr-2021' AND '01-jul-2021'
+  3  GROUP BY Card_No
+  4  having count(*)>2;
+
+   CARD_NO
+----------
+         1
+
+Q3 
+SQL> delete from BOOK where Book_Id='B05';
+
+1 row deleted.
+
+SQL> SELECT * FROM BOOK;
+
+BOOK TITLE      PUBLISHER_   PUB_YEAR
+---- ---------- ---------- ----------
+B01  Algorithms Alpine           2018
+B02  Facts      Oyster           2021
+B03  Maths      Canyon           2010
+B04  Stories    Neo              2007
+
+Q4
+SQL> create view V_PUBLICATION as SELECT Pub_Year FROM BOOK;
+
+View created.
+
+SQL> SELECT * FROM V_PUBLICATION;
+
+  PUB_YEAR
+----------
+      2018
+      2021
+      2010
+      2007
+
+Q5
+SQL> CREATE view V_BOOKS as
+  2  SELECT b.Book_Id,b.title,c.Branch_Id,c.No_of_copies
+  3  FROM BOOK b, BOOK_COPIES c, LIBRARY_BRANCH lb
+  4  WHERE b.Book_Id = c.Book_Id
+  5  AND c.Branch_Id = lb.Branch_Id;
+
+View created.
+
+SQL> Select * From V_BOOKS;
+
+BOOK TITLE      BRAN NO_OF_COPIES
+---- ---------- ---- ------------
+B01  Algorithms BR01           12
+B01  Algorithms BR03           20
+B02  Facts      BR01            6
+B02  Facts      BR02           10
+B03  Maths      BR01           30
+B04  Stories    BR01           10
+B04  Stories    BR02            6
+B04  Stories    BR03           40
+
+8 rows selected.
+
+
+

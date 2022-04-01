@@ -1,0 +1,548 @@
+create table salesguy (
+Salesman_id int,
+Name varchar(10),
+city varchar(10),
+Commission int,
+PRIMARY KEY (Salesman_id)
+);
+
+Table created.
+
+create table customerinfo (
+Customer_id int PRIMARY KEY,
+Customer_Name varchar(10),
+city varchar(10),
+Grade int,
+Salesman_id int,
+FOREIGN KEY (Salesman_id)
+REFERENCES salesguy (Salesman_id) on delete set NULL
+);
+
+
+Table created.
+
+create table orderinfo
+(
+Ord_no int PRIMARY KEY,
+Purchase_amt int,
+Ord_date date,
+Customer_id int,
+Salesman_id int,
+FOREIGN KEY (Customer_id)
+REFERENCES customerinfo(Customer_id) on delete cascade,
+FOREIGN KEY (Salesman_id)
+REFERENCES salesguy(Salesman_id) on delete cascade
+);
+
+Table created.
+
+SQL> desc salesguy;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALESMAN_ID                               NOT NULL NUMBER(38)
+ NAME                                               VARCHAR2(10)
+ CITY                                               VARCHAR2(10)
+ COMMISSION                                         NUMBER(38)
+
+SQL> desc customerinfo
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMER_ID                               NOT NULL NUMBER(38)
+ CUSTOMER_NAME                                      VARCHAR2(10)
+ CITY                                               VARCHAR2(10)
+ GRADE                                              NUMBER(38)
+ SALESMAN_ID                                        NUMBER(38)
+
+SQL> desc  orderinfo
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORD_NO                                    NOT NULL NUMBER(38)
+ PURCHASE_AMT                                       NUMBER(38)
+ ORD_DATE                                           DATE
+ CUSTOMER_ID                                        NUMBER(38)
+ SALESMAN_ID                                        NUMBER(38)
+
+
+SQL> insert into salesguy values
+  2  ('&Salesman_id','&Name','&City','&Commission');
+Enter value for salesman_id: 100
+Enter value for name: Adi
+Enter value for city: Mangalore
+Enter value for commission: 10
+old   2: ('&Salesman_id','&Name','&City','&Commission')
+new   2: ('100','Adi','Mangalore','10')
+
+1 row created.
+
+SQL> insert into salesguy values
+  2  ('&Salesman_id','&Name','&City','&Commission');
+Enter value for salesman_id: 101
+Enter value for name: Karan
+Enter value for city: Kengeri
+Enter value for commission: 19
+old   2: ('&Salesman_id','&Name','&City','&Commission')
+new   2: ('101','Karan','Kengeri','19')
+
+1 row created.
+
+SQL> insert into salesguy values
+  2  ('&Salesman_id','&Name','&City','&Commission');
+Enter value for salesman_id: 103
+Enter value for name: Eon
+Enter value for city: Goa
+Enter value for commission: 17
+old   2: ('&Salesman_id','&Name','&City','&Commission')
+new   2: ('103','Eon','Goa','17')
+
+1 row created.
+
+SQL> insert into salesguy values
+  2  ('&Salesman_id','&Name','&City','&Commission');
+Enter value for salesman_id: 110
+Enter value for name: John
+Enter value for city: Mumbai
+Enter value for commission: 20
+old   2: ('&Salesman_id','&Name','&City','&Commission')
+new   2: ('110','John','Mumbai','20')
+
+1 row created.
+
+SQL> insert into salesguy values
+  2  ('&Salesman_id','&Name','&City','&Commission');
+Enter value for salesman_id: 111
+Enter value for name: Jarvis
+Enter value for city: Surat
+Enter value for commission: 25
+old   2: ('&Salesman_id','&Name','&City','&Commission')
+new   2: ('111','Jarvis','Surat','25')
+
+1 row created.
+
+SQL> select * from salesguy;
+
+SALESMAN_ID NAME       CITY       COMMISSION
+----------- ---------- ---------- ----------
+        100 Adi        Mangalore          10
+        101 Karan      Kengeri            19
+        103 Eon        Goa                17
+        110 John       Mumbai             20
+        111 Jarvis     Surat              25
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 1
+Enter value for customer_name: Deepak
+Enter value for city: Karwar
+Enter value for grade: 12
+Enter value for salesman_id: 103
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('1','Deepak','Karwar','12','103')
+
+1 row created.
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 2
+Enter value for customer_name: Jose
+Enter value for city: Goa
+Enter value for grade: 30
+Enter value for salesman_id: 103
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('2','Jose','Goa','30','103')
+
+1 row created.
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 3
+Enter value for customer_name: Gopi
+Enter value for city: Kengeri
+Enter value for grade: 20
+Enter value for salesman_id: 101
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('3','Gopi','Kengeri','20','101')
+
+1 row created.
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 4
+Enter value for customer_name: Ishan
+Enter value for city: Mangalore
+Enter value for grade: 40
+Enter value for salesman_id: 100
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('4','Ishan','Mangalore','40','100')
+
+1 row created.
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 5
+Enter value for customer_name: Dravid
+Enter value for city: Bangalore
+Enter value for grade: 50
+Enter value for salesman_id: 101
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('5','Dravid','Bangalore','50','101')
+
+1 row created.
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 6
+Enter value for customer_name: Tara
+Enter value for city: Mumbai
+Enter value for grade: 31
+Enter value for salesman_id: 110
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('6','Tara','Mumbai','31','110')
+
+1 row created.
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 7
+Enter value for customer_name: Dehli
+Enter value for city: Dehli
+Enter value for grade: 10
+Enter value for salesman_id: 111
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('7','Dehli','Dehli','10','111')
+
+1 row created.
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 8
+Enter value for customer_name: Sandeep
+Enter value for city: Ajmer
+Enter value for grade: 32
+Enter value for salesman_id: 111
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('8','Sandeep','Ajmer','32','111')
+
+1 row created.
+
+
+SQL> insert into customerinfo values
+  2  ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id');
+Enter value for customer_id: 9
+Enter value for customer_name: Gian
+Enter value for city: Mysore
+Enter value for grade: 20
+Enter value for salesman_id: 101
+old   2: ('&Customer_id','&Customer_Name','&city','&Grade','&Salesman_id')
+new   2: ('9','Gian','Mysore','20','101')
+
+1 row created.
+
+SQL> select * from customerinfo;
+
+CUSTOMER_ID CUSTOMER_N CITY            GRADE SALESMAN_ID
+----------- ---------- ---------- ---------- -----------
+          1 Deepak     Karwar             12         103
+          2 Jose       Goa                30         103
+          3 Gopi       Kengeri            20         101
+          4 Ishan      Mangalore          40         100
+          5 Dravid     Bangalore          50         101
+          6 Tara       Mumbai             31         110
+          7 Dehli      Dehli              10         111
+          8 Sandeep    Ajmer              32         111
+          9 Gian       Mysore             20         101
+
+9 rows selected.
+
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 1000
+Enter value for purchase_amt: 20000
+Enter value for ord_date: 01-nov-2021
+Enter value for customer_id: 1
+Enter value for salesman_id: 103
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('1000','20000','01-nov-2021','1','103')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 1032
+Enter value for purchase_amt: 25000
+Enter value for ord_date: 05-nov-2021
+Enter value for customer_id: 1
+Enter value for salesman_id: 103
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('1032','25000','05-nov-2021','1','103')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 1050
+Enter value for purchase_amt: 50000
+Enter value for ord_date: 05-nov-2021
+Enter value for customer_id: 2
+Enter value for salesman_id: 103
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('1050','50000','05-nov-2021','2','103')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 1700
+Enter value for purchase_amt: 40000
+Enter value for ord_date: 11-nov-2021
+Enter value for customer_id: 3
+Enter value for salesman_id: 101
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('1700','40000','11-nov-2021','3','101')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 1890
+Enter value for purchase_amt: 35000
+Enter value for ord_date: 12-nov-2021
+Enter value for customer_id: 4
+Enter value for salesman_id: 100
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('1890','35000','12-nov-2021','4','100')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 1900
+Enter value for purchase_amt: 50000
+Enter value for ord_date: 15-nov-2021
+Enter value for customer_id: 4
+Enter value for salesman_id: 100
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('1900','50000','15-nov-2021','4','100')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 2000
+Enter value for purchase_amt: 75000
+Enter value for ord_date: 16-nov-2021
+Enter value for customer_id: 4
+Enter value for salesman_id: 100
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('2000','75000','16-nov-2021','4','100')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 2008
+Enter value for purchase_amt: 80000
+Enter value for ord_date: 16-nov-2021
+Enter value for customer_id: 5
+Enter value for salesman_id: 101
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('2008','80000','16-nov-2021','5','101')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 2010
+Enter value for purchase_amt: 5000
+Enter value for ord_date: 20-nov-2021
+Enter value for customer_id: 6
+Enter value for salesman_id: 110
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('2010','5000','20-nov-2021','6','110')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 2020
+Enter value for purchase_amt: 12000
+Enter value for ord_date: 21-nov-2021
+Enter value for customer_id: 7
+Enter value for salesman_id: 111
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('2020','12000','21-nov-2021','7','111')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 2023
+Enter value for purchase_amt: 15000
+Enter value for ord_date: 22-nov-2021
+Enter value for customer_id: 8
+Enter value for salesman_id: 111
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('2023','15000','22-nov-2021','8','111')
+
+1 row created.
+
+SQL> insert into orderinfo values
+  2  ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id');
+Enter value for ord_no: 2030
+Enter value for purchase_amt: 8000
+Enter value for ord_date: 25-nov-2021
+Enter value for customer_id: 9
+Enter value for salesman_id: 101
+old   2: ('&Ord_no','&Purchase_amt','&Ord_date','&Customer_id','&Salesman_id')
+new   2: ('2030','8000','25-nov-2021','9','101')
+
+1 row created.
+
+SQL> select * from orderinfo;
+
+    ORD_NO PURCHASE_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID
+---------- ------------ --------- ----------- -----------
+      1700        40000 11-NOV-21           3         101
+      1890        35000 12-NOV-21           4         100
+      1900        50000 15-NOV-21           4         100
+      2000        75000 16-NOV-21           4         100
+      2008        80000 16-NOV-21           5         101
+      2010         5000 20-NOV-21           6         110
+      2020        12000 21-NOV-21           7         111
+      2023        15000 22-NOV-21           8         111
+      2030         8000 25-NOV-21           9         101
+
+
+
+
+Q1
+SQL> select Grade, COUNT(distinct Customer_id) as Total_Customers
+  2  from customerinfo
+  3  group by Grade
+  4  having Grade>(select AVG(Grade) from customerinfo where City='Karwar');
+
+     GRADE TOTAL_CUSTOMERS
+---------- ---------------
+        30               1
+        20               2
+        31               1
+        32               1
+        40               1
+        50               1
+
+6 rows selected.
+
+Q2
+SQL> select s.Salesman_id,s.Name
+  2  from salesguy s
+  3  where(select COUNT(*) from customerinfo c where c.Salesman_id=s.Salesman_id)>1;
+
+SALESMAN_ID NAME
+----------- ----------
+        101 Karan
+        103 Eon
+        111 Jarvis
+
+Q3
+SQL> (select a.Salesman_id,a.Name,b.Customer_Name,a.Commission,a.City from salesguy a, customerinfo b where a.City = b.City);
+
+SALESMAN_ID NAME       CUSTOMER_N COMMISSION CITY
+----------- ---------- ---------- ---------- ----------
+        103 Eon        Jose               17 Goa
+        101 Karan      Gopi               19 Kengeri
+        100 Adi        Ishan              10 Mangalore
+        110 John       Tara               20 Mumbai
+
+SQL> (select Salesman_id,Name,'No Match',Commission,City from salesguy where NOT City = ANY (select CIty from customerinfo));
+
+SALESMAN_ID NAME       'NOMATCH COMMISSION CITY
+----------- ---------- -------- ---------- ----------
+        111 Jarvis     No Match         25 Surat
+
+SQL> (select a.Salesman_id,a.Name,b.Customer_Name,a.Commission,a.City from salesguy a, customerinfo b where a.City = b.City)
+  2  UNION
+  3  (select Salesman_id,Name,'No Match',Commission,City from salesguy where NOT City = ANY (select CIty from customerinfo))
+  4  order by 2 Desc;
+
+SALESMAN_ID NAME       CUSTOMER_N COMMISSION CITY
+----------- ---------- ---------- ---------- ----------
+        101 Karan      Gopi               19 Kengeri
+        110 John       Tara               20 Mumbai
+        111 Jarvis     No Match           25 Surat
+        103 Eon        Jose               17 Goa
+        100 Adi        Ishan              10 Mangalore
+
+Q4
+SQL> create view TOPSALESMAN as
+  2  select b.Ord_date,b.Purchase_amt,a.Salesman_id,a.Name from salesguy a, orderinfo b where a.Salesman_id = b.Salesman_id and b.Purchase_amt = (select MAX (c.Purchase_amt)
+  3  from orderinfo c where b.Ord_date=c.Ord_date);
+
+View created.
+
+SQL> select * from TOPSALESMAN;
+
+ORD_DATE  PURCHASE_AMT SALESMAN_ID NAME
+--------- ------------ ----------- ----------
+01-NOV-21        20000         103 Eon
+05-NOV-21        50000         103 Eon
+11-NOV-21        40000         101 Karan
+12-NOV-21        35000         100 Adi
+15-NOV-21        50000         100 Adi
+16-NOV-21        80000         101 Karan
+20-NOV-21         5000         110 John
+21-NOV-21        12000         111 Jarvis
+22-NOV-21        15000         111 Jarvis
+25-NOV-21         8000         101 Karan
+
+10 rows selected.
+
+SQL>
+
+Q5
+SQL> Delete from salesguy where Salesman_id=103 ;
+
+1 row deleted.
+
+
+SALESMAN_ID NAME       CITY       COMMISSION
+----------- ---------- ---------- ----------
+        100 Adi        Mangalore          10
+        101 Karan      Kengeri            19
+        110 John       Mumbai             20
+        111 Jarvis     Surat              25
+
+SQL> select * from customerinfo;
+
+CUSTOMER_ID CUSTOMER_N CITY            GRADE SALESMAN_ID
+----------- ---------- ---------- ---------- -----------
+          1 Deepak     Karwar             12
+          2 Jose       Goa                30
+          3 Gopi       Kengeri            20         101
+          4 Ishan      Mangalore          40         100
+          5 Dravid     Bangalore          50         101
+          6 Tara       Mumbai             31         110
+          7 Dehli      Dehli              10         111
+          8 Sandeep    Ajmer              32         111
+          9 Gian       Mysore             20         101
+
+9 rows selected.
+
+SQL> select * from orderinfo;
+
+    ORD_NO PURCHASE_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID
+---------- ------------ --------- ----------- -----------
+      1700        40000 11-NOV-21           3         101
+      1890        35000 12-NOV-21           4         100
+      1900        50000 15-NOV-21           4         100
+      2000        75000 16-NOV-21           4         100
+      2008        80000 16-NOV-21           5         101
+      2010         5000 20-NOV-21           6         110
+      2020        12000 21-NOV-21           7         111
+      2023        15000 22-NOV-21           8         111
+      2030         8000 25-NOV-21           9         101
+
+9 rows selected.
+
+
+
+

@@ -1,0 +1,529 @@
+create table newstudent
+(
+usn varchar(10),
+sname varchar(10),
+address varchar(10),
+phone varchar(10),
+gender varchar(1),
+primary key(usn)
+);
+
+Table created.
+
+create table semsec
+(
+ssid varchar(6),
+sem int,
+sec varchar(2),
+primary key(ssid)
+);
+
+Table created.
+
+create table newclass
+(
+usn varchar(10),
+ssid varchar(6),
+primary key(usn,ssid),
+foreign key(usn) references newstudent(usn),
+foreign key(ssid) references semsec(ssid)
+);
+
+Table Created.
+
+create table newsubject
+(
+subcode varchar(7),
+title varchar(20),
+sem int,
+credits int,
+primary key(subcode)
+);
+
+Table created.
+
+create table iamarks
+(
+usn varchar(10),
+subcode varchar(7),
+ssid varchar(6),
+test1 int,
+test2 int,
+test3 int,
+finalia int,
+primary key(usn,subcode,ssid)'
+foreign key(usn) references newstudent(usn),
+foreign key(ssid) references semsec(ssid),
+foreign key(subcode) references newsubject(subcode)
+);
+
+Table created.
+
+
+SQL> desc newstudent;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ USN                                       NOT NULL VARCHAR2(10)
+ SNAME                                              VARCHAR2(10)
+ ADDRESS                                            VARCHAR2(10)
+ PHONE                                              VARCHAR2(10)
+ GENDER                                             VARCHAR2(1)
+
+SQL> desc semsec;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SSID                                      NOT NULL VARCHAR2(6)
+ SEM                                                NUMBER(38)
+ SEC                                                VARCHAR2(2)
+
+SQL> desc newclass;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ USN                                       NOT NULL VARCHAR2(10)
+ SSID                                      NOT NULL VARCHAR2(6)
+
+SQL> desc newsubject;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SUBCODE                                   NOT NULL VARCHAR2(7)
+ TITLE                                              VARCHAR2(20)
+ SEM                                                NUMBER(38)
+ CREDITS                                            NUMBER(38)
+
+SQL> desc iamarks;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ USN                                       NOT NULL VARCHAR2(10)
+ SUBCODE                                   NOT NULL VARCHAR2(7)
+ SSID                                      NOT NULL VARCHAR2(6)
+ TEST1                                              NUMBER(38)
+ TEST2                                              NUMBER(38)
+ TEST3                                              NUMBER(38)
+ FINALIA                                            NUMBER(38)
+
+SQL> insert into newstudent values ('4JK22CS001','Aaron','Mangalore',1234567890,'M');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS009','Bheem','Mangalore',0987654321,'F');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS002','Arvind','Udupi',0246810121,'M');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS012','Amrita','Goa',1357911131,'F');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS031','Jordan','Hubli',2345678901,'M');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS024','Raji','Bangalore',3456789012,'F');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS029','Priya','Mysore',4567890123,'F');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS042','Sandeep','Puttur',5678901234,'M');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS033','Jais','Kundapur',6789012345,'M');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS060','Vashi','Bangalore',7890123456,'F');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS070','Zongh','Mangalore',8901234567,'M');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS005','Aporva','Mysore',9012345678,'F');
+
+1 row created.
+
+SQL> insert into newstudent values ('4JK22CS017','Khan','Hubli',9876543210,'M');
+
+SQL> insert into newstudent values ('4JK22CS015','Tej','Dharwad',9876543210,'M');
+
+1 row created.
+
+SQL> select * from newstudent;
+
+USN        SNAME      ADDRESS    PHONE      G
+---------- ---------- ---------- ---------- -
+4JK22CS001 Aaron      Mangalore  1234567890 M
+4JK22CS009 Bheem      Mangalore  987654321  F
+4JK22CS002 Arvind     Udupi      246810121  M
+4JK22CS012 Amrita     Goa        1357911131 F
+4JK22CS031 Jordan     Hubli      2345678901 M
+4JK22CS024 Raji       Bangalore  3456789012 F
+4JK22CS029 Priya      Mysore     4567890123 F
+4JK22CS042 Sandeep    Puttur     5678901234 M
+4JK22CS033 Jais       Kundapur   6789012345 M
+4JK22CS060 Vashi      Bangalore  7890123456 F
+4JK22CS070 Zongh      Mangalore  8901234567 M
+
+USN        SNAME      ADDRESS    PHONE      G
+---------- ---------- ---------- ---------- -
+4JK22CS005 Aporva     Mysore     9012345678 F
+4JK22CS017 Khan       Hubli      9876543210 M
+4JK22CS015 Tej        Dharwad    9876543210 M
+
+14 rows selected.
+
+SQL> insert into semsec values ('cse8a',8,'a');
+
+1 row created.
+
+SQL> insert into semsec values ('cse8b',8,'b');
+
+1 row created.
+
+SQL> insert into semsec values ('cse6a',6,'a');
+
+1 row created.
+
+SQL> insert into semsec values ('cse6b',6,'b');
+
+1 row created.
+
+SQL> insert into semsec values ('cse6c',6,'c');
+
+1 row created.
+
+SQL> insert into semsec values ('cse4a',4,'a');
+
+1 row created.
+
+SQL> insert into semsec values ('cse4b',4,'b');
+
+1 row created.
+
+SQL> insert into semsec values ('cse2a',2,'a');
+
+1 row created.
+
+SQL> select * from semsec;
+
+SSID          SEM SE
+------ ---------- --
+cse8a           8 a
+cse8b           8 b
+cse6a           6 a
+cse6b           6 b
+cse6c           6 c
+cse4a           4 a
+cse4b           4 b
+cse2a           2 a
+
+8 rows selected.
+
+
+SQL> insert into newclass values('4JK22CS001','cse8a');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS009','cse6b');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS002','cse8b');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS031','cse8b');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS024','cse2a');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS060','cse2a');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS029','cse4b');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS042','cse6c');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS070','cse4a');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS033','cse4b');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS005','cse6b');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS017','cse6c');
+
+1 row created.
+
+SQL> insert into newclass values('4JK22CS015','cse4a');
+
+1 row created.
+
+SQL> select * from newclass
+  2  ;
+
+USN        SSID
+---------- ------
+4JK22CS001 cse8a
+4JK22CS002 cse8b
+4JK22CS005 cse6b
+4JK22CS009 cse6b
+4JK22CS012 cse8a
+4JK22CS015 cse4a
+4JK22CS017 cse6c
+4JK22CS024 cse2a
+4JK22CS029 cse4b
+4JK22CS031 cse8b
+4JK22CS033 cse4b
+
+USN        SSID
+---------- ------
+4JK22CS042 cse6c
+4JK22CS060 cse2a
+4JK22CS070 cse4a
+
+14 rows selected.
+
+SQL> insert into newsubject values('22cs81','PY',8,4);
+
+1 row created.
+
+SQL> insert into newsubject values('22cs82','CC',8,4);
+
+1 row created.
+
+SQL> insert into newsubject values('22cs86','AWS',8,2);
+
+1 row created.
+
+SQL> insert into newsubject values('22cs61','CG',6,4);
+
+1 row created.
+
+SQL> insert into newsubject values('22cs63','ML',6,4);
+
+1 row created.
+
+SQL> insert into newsubject values('22cs41','DAA',4,4);
+
+1 row created.
+
+SQL> insert into newsubject values('22cs44','OS',4,4);
+
+1 row created.
+
+SQL> insert into newsubject values('22cs21','CPS',2,4);
+
+1 row created.
+
+SQL> insert into newsubject values('22cs22','CHE',2,4);
+
+1 row created.
+
+SQL> select * from newsubject;
+
+SUBCODE TITLE                       SEM    CREDITS
+------- -------------------- ---------- ----------
+22cs81  PY                            8          4
+22cs82  CC                            8          4
+22cs86  AWS                           8          2
+22cs61  CG                            6          4
+22cs63  ML                            6          4
+22cs41  DAA                           4          4
+22cs44  OS                            4          4
+22cs21  CPS                           2          4
+22cs22  CHE                           2          4
+
+9 rows selected.
+
+
+SQL> insert into iamarks (usn,subcode,ssid,test1,test2,test3) values('4JK22CS001','22cs81','cse8a',12,9,10);
+
+1 row created.
+
+SQL> insert into iamarks (usn,subcode,ssid,test1,test2,test3) values('4JK22CS001','22cs82','cse8a',12,9,9);
+
+1 row created.
+
+SQL> insert into iamarks (usn,subcode,ssid,test1,test2,test3) values('4JK22CS024','22cs21','cse2a',19,20,19);
+
+1 row created.
+
+SQL> insert into iamarks (usn,subcode,ssid,test1,test2,test3) values('4JK22CS024','22cs22','cse2a',18,20,17);
+
+1 row created.
+
+SQL> insert into iamarks (usn,subcode,ssid,test1,test2,test3) values('4JK22CS009','22cs61','cse6b',9,15,10)
+  2  ;
+
+1 row created.
+
+SQL> insert into iamarks (usn,subcode,ssid,test1,test2,test3) values('4JK22CS015','22cs41','cse4a',9,11,8)
+  2  ;
+
+1 row created.
+
+SQL> insert into iamarks (usn,subcode,ssid,test1,test2,test3) values('4JK22CS017','22cs61','cse6c',5,9,8)
+  2  ;
+
+1 row created.
+
+SQL> insert into iamarks (usn,subcode,ssid,test1,test2,test3) values('4JK22CS029' ,'22cs41','cse4b',10,0,8);
+
+1 row created.
+
+SQL> select * from iamarks;
+
+USN        SUBCODE SSID        TEST1      TEST2      TEST3    FINALIA
+---------- ------- ------ ---------- ---------- ---------- ----------
+4JK22CS001 22cs81  cse8a          12          9         10
+4JK22CS001 22cs82  cse8a          12          9          9
+4JK22CS024 22cs21  cse2a          19         20         19
+4JK22CS024 22cs22  cse2a          18         20         17
+4JK22CS009 22cs61  cse6b           9         15         10
+4JK22CS015 22cs41  cse4a           9         11          8
+4JK22CS017 22cs61  cse6c           5          9          8
+4JK22CS029 22cs41  cse4b          10          0          8
+
+8 rows selected.
+
+QUERY 1
+SQL> select s.*, ss.sem,ss.sec
+  2  from newstudent s, semsec ss, newclass c
+  3  where s.usn=c.usn and ss.ssid = c.ssid
+  4  and ss.sem =4 and ss.sec='b';
+
+USN        SNAME      ADDRESS    PHONE      G        SEM SE
+---------- ---------- ---------- ---------- - ---------- --
+4JK22CS029 Priya      Mysore     4567890123 F          4 b
+4JK22CS033 Jais       Kundapur   6789012345 M          4 b
+
+QUERY 2
+SQL> select ss.sem,ss.sec,s.gender,COUNT(s.gender) as COUNT
+  2  from newstudent s, semsec ss, newclass c
+  3  where s.usn=c.usn and ss.ssid=c.ssid
+  4  group by ss.sem,ss.sec,s.gender
+  5  order by sem;
+
+       SEM SE G      COUNT
+---------- -- - ----------
+         2 a  F          2
+         4 a  M          2
+         4 b  F          1
+         4 b  M          1
+         6 b  F          2
+         6 c  M          2
+         8 a  F          1
+         8 a  M          1
+         8 b  M          2
+
+9 rows selected.
+
+QUERY 3
+SQL> create view Test1_view as
+  2  select test1,subcode
+  3  from iamarks
+  4  where usn ='4JK22CS001';
+
+View created.
+
+SQL> select * from Test1_view;
+
+     TEST1 SUBCODE
+---------- -------
+        12 22cs81
+        12 22cs82
+
+
+QUERY 4
+create or replace procedure AVGMARKS is
+cursor c_iamarksf is
+select greatest(test1,test2) as a, greatest(test1,test3) as b, greatest(test3,test2) as c
+from iamarksf
+where finalia is null for update;
+c_a number;
+c_b number;
+c_c number;
+c_sm number;
+c_av number;
+begin
+open c_iamarksf;
+loop
+fetch c_iamarksf into c_a, c_b, c_c;
+exit when c_iamarksf%notfound;
+if(c_a!=c_b) then
+     c_sm:=c_a+c_b;
+  else
+      c_sm:=c_a+c_c;
+  end if;
+c_av:=c_sm/2;
+update iamarksf set finalia=c_av where current of c_iamarksf;
+end loop;
+close c_iamarksf;
+end;
+ /
+
+Procedure created.
+
+SQL> begin
+  2  AVGMARKS;
+  3  end;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+select * from iamarks;
+
+
+USN        SUBCODE SSID        TEST1      TEST2      TEST3    FINALIA   
+---------- ------- ------ ---------- ---------- ---------- ---------- 
+4JK22CS001 22cs81  cse8a          12          9         10         11
+4JK22CS001 22cs82  cse8a          12          9          9         11
+4JK22CS024 22cs21  cse2a          19         20         19         20
+4JK22CS024 22cs22  cse2a          18         20         17         19
+4JK22CS009 22cs61  cse6b           9         15         10         13
+4JK22CS015 22cs41  cse4a           9         11          8         10
+4JK22CS017 22cs61  cse6c           5          9          8          9
+4JK22CS029 22cs41  cse4b          10          0          8          9
+
+
+QUERY 5
+SQL>  select s.usn,s.sname,s.address,s.phone,s.gender,
+  2    (case
+  3    when ia.finalia between 17 and 20 then 'outstanding'
+  4    when ia.finalia between 12 and 16 then 'average'
+  5    else 'weak'
+  6    end) as cat
+  7    from newstudent s,semsec ss,iamarksf ia, newsubject sub
+  8    where s.usn=ia.usn
+  9    and ss.ssid=ia.ssid
+ 10    and sub.subcode=ia.subcode
+ 11    and sub.sem=6
+ 12  ;
+
+USN        SNAME      ADDRESS    PHONE      G CAT
+---------- ---------- ---------- ---------- - -----------
+4JK22CS009 Bheem      Mangalore  987654321  F average
+4JK22CS017 Khan       Hubli      9876543210 M weak
+
+
